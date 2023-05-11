@@ -19,31 +19,29 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 
 const IndexPage: NextPage<Props> = ({ initialImageUrl }) => {
   const [imageUrl, setImageUrl] = useState(initialImageUrl);
-  const [loading, setLoading] = useState(false);
-
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetchImages().then((newImage) => {
-  //     setImageUrl(newImage.url);
-  //     setLoading(false);
-  //   });
-  // }, []);
 
   // ボタンクリック処理
   const handleClick = async () => {
-    setLoading(true);
     const newImage = await fetchImages();
     setImageUrl(newImage.url);
-    setLoading(false);
   };
 
   return (
-    <div className={styles.page}>
-      <button className={styles.button} onClick={handleClick}>
-        他のにゃんこも見る
+    <div>
+      <button
+        onClick={handleClick}
+        style={{
+          backgroundColor: "#319795",
+          border: "none",
+          borderRadius: "4px",
+          color: "white",
+          padding: "4px 8px",
+        }}
+      >
+        きょうのにゃんこ🐱
       </button>
-      <div className={styles.frame}>
-        {loading || <img src={imageUrl} className={styles.img} />}
+      <div style={{ marginTop: 8, maxWidth: 500 }}>
+        <img src={imageUrl} width="100%" height="auto" alt="猫" />
       </div>
     </div>
   );
